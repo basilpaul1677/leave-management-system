@@ -1,0 +1,10 @@
+@import "./variables.css";
+@import "./theme.css";
+@import "./global.css";
+@import "./animations.css";
+@import "./layout.css";
+@import "./components.css";
+@import "./forms.css";
+@import "./tables.css";
+@import "./dashboard.css";
+@import "./responsive.css";
