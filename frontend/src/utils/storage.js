@@ -1,55 +1,63 @@
-const ACCESS_TOKEN_KEY = 'accessToken';
-const USER_KEY = 'currentUser';
+import { STORAGE_KEYS } from "./constants";
 
-export const storage = {
-    setAccessToken(token) {
-        localStorage.setItem(ACCESS_TOKEN_KEY, token);
-    },
-
-    getAccessToken() {
-        return localStorage.getItem(ACCESS_TOKEN_KEY);
-    },
-
-    removeAccessToken() {
-        localStorage.removeItem(ACCESS_TOKEN_KEY);
-    },
-
-    setUser(user) {
+export const setToken = (token) => {
+    if (token) {
         localStorage.setItem(
-            USER_KEY,
-            JSON.stringify(user)
+            STORAGE_KEYS.TOKEN,
+            token
         );
-    },
-
-    getUser() {
-        const user = localStorage.getItem(USER_KEY);
-
-        if (!user) {
-            return null;
-        }
-
-        try {
-            return JSON.parse(user);
-        } catch (error) {
-            console.error(
-                'Unable to parse stored user information.',
-                error
-            );
-
-            localStorage.removeItem(USER_KEY);
-
-            return null;
-        }
-    },
-
-    removeUser() {
-        localStorage.removeItem(USER_KEY);
-    },
-
-    clear() {
-        localStorage.removeItem(ACCESS_TOKEN_KEY);
-        localStorage.removeItem(USER_KEY);
     }
 };
 
-export default storage;
+export const getToken = () => {
+    return localStorage.getItem(
+        STORAGE_KEYS.TOKEN
+    );
+};
+
+export const removeToken = () => {
+    localStorage.removeItem(
+        STORAGE_KEYS.TOKEN
+    );
+};
+
+export const setUser = (user) => {
+    if (user) {
+        localStorage.setItem(
+            STORAGE_KEYS.USER,
+            JSON.stringify(user)
+        );
+    }
+};
+
+export const getUser = () => {
+    const storedUser =
+        localStorage.getItem(
+            STORAGE_KEYS.USER
+        );
+
+    if (!storedUser) {
+        return null;
+    }
+
+    try {
+        return JSON.parse(storedUser);
+    } catch {
+        localStorage.removeItem(
+            STORAGE_KEYS.USER
+        );
+
+        return null;
+    }
+};
+
+export const removeUser = () => {
+    localStorage.removeItem(
+        STORAGE_KEYS.USER
+    );
+};
+
+export const clearStorage = () => {
+    removeToken();
+    removeUser();
+};

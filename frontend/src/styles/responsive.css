@@ -1,0 +1,141 @@
+/* =========================================================
+   TABLETS
+========================================================= */
+
+@media (max-width: 1200px) {
+    :root {
+        --sidebar-width: 230px;
+    }
+
+    .stats-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 992px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform var(--transition-normal);
+    }
+
+    .sidebar.mobile-open {
+        transform: translateX(0);
+    }
+
+    .main-content-wrapper {
+        margin-left: 0;
+    }
+
+    .main-content {
+        padding: var(--space-5);
+    }
+
+    .top-navbar {
+        padding: 0 var(--space-4);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: var(--space-4);
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-actions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .notification-dropdown {
+        position: fixed;
+
+        top: var(--navbar-height);
+
+        left: var(--space-3);
+        right: var(--space-3);
+
+        width: auto;
+    }
+
+    .app-card {
+        padding: var(--space-4);
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+    :root {
+        --font-size-2xl: 1.35rem;
+        --font-size-3xl: 1.6rem;
+    }
+
+    .main-content {
+        padding: var(--space-3);
+    }
+
+    .top-navbar {
+        height: 62px;
+    }
+
+    .sidebar-brand {
+        height: 62px;
+    }
+
+    .table-container {
+        border-radius: var(--radius-md);
+    }
+
+    .app-table th,
+    .app-table td {
+        padding: 10px 12px;
+    }
+
+    .modal-overlay {
+        padding: var(--space-3);
+    }
+
+    .app-modal {
+        max-height: 95vh;
+    }
+}
+
+
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

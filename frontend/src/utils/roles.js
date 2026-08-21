@@ -1,21 +1,81 @@
 export const ROLES = {
-    EMPLOYEE: 'EMPLOYEE',
-    MANAGER: 'MANAGER',
-    ADMIN: 'ADMIN',
+    EMPLOYEE: "EMPLOYEE",
+    MANAGER: "MANAGER",
+    ADMIN: "ADMIN",
 };
 
-export const isEmployee = (role) =>
-    role === ROLES.EMPLOYEE;
+export const ROLE_LABELS = {
+    [ROLES.EMPLOYEE]: "Employee",
+    [ROLES.MANAGER]: "Manager",
+    [ROLES.ADMIN]: "Administrator",
+};
 
-export const isManager = (role) =>
-    role === ROLES.MANAGER;
+export const ROLE_PERMISSIONS = {
+    [ROLES.EMPLOYEE]: [
+        "VIEW_DASHBOARD",
+        "VIEW_PROFILE",
+        "APPLY_LEAVE",
+        "VIEW_OWN_LEAVES",
+        "VIEW_LEAVE_BALANCE",
+        "VIEW_NOTIFICATIONS",
+    ],
 
-export const isAdmin = (role) =>
-    role === ROLES.ADMIN;
+    [ROLES.MANAGER]: [
+        "VIEW_DASHBOARD",
+        "VIEW_PROFILE",
+        "VIEW_EMPLOYEES",
+        "VIEW_EMPLOYEE_DETAILS",
+        "APPLY_LEAVE",
+        "VIEW_OWN_LEAVES",
+        "VIEW_LEAVE_BALANCE",
+        "VIEW_PENDING_LEAVES",
+        "APPROVE_LEAVE",
+        "VIEW_NOTIFICATIONS",
+    ],
 
-export const isManagerOrAdmin = (role) =>
-    role === ROLES.MANAGER ||
-    role === ROLES.ADMIN;
+    [ROLES.ADMIN]: [
+        "VIEW_DASHBOARD",
+        "VIEW_PROFILE",
+        "VIEW_EMPLOYEES",
+        "VIEW_EMPLOYEE_DETAILS",
+        "EDIT_EMPLOYEE",
+        "APPLY_LEAVE",
+        "VIEW_OWN_LEAVES",
+        "VIEW_LEAVE_BALANCE",
+        "VIEW_PENDING_LEAVES",
+        "APPROVE_LEAVE",
+        "MANAGE_LEAVE_TYPES",
+        "VIEW_NOTIFICATIONS",
+        "DELETE_NOTIFICATION",
+    ],
+};
 
-export const isAuthenticatedRole = (role) =>
-    Object.values(ROLES).includes(role);
+export const hasRole = (userRole, allowedRoles = []) => {
+    if (!userRole) {
+        return false;
+    }
+
+    if (!allowedRoles.length) {
+        return true;
+    }
+
+    return allowedRoles.some(
+        (role) =>
+            role.toUpperCase() ===
+            userRole.toUpperCase()
+    );
+};
+
+export const hasPermission = (
+    userRole,
+    permission
+) => {
+    if (!userRole) {
+        return false;
+    }
+
+    const permissions =
+        ROLE_PERMISSIONS[userRole.toUpperCase()] || [];
+
+    return permissions.includes(permission);
+};
